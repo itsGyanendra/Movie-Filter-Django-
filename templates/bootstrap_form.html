@@ -1,0 +1,99 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Filter Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'template.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                  <a class="nav-link" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="admin">Admin Login</a>
+            </li>
+            </ul> 
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+
+      <h3>Filter Movies</h3>
+      <form method="GET" action=".">
+        <div class="form-row">
+            <div class="form-group col-12">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="search" name="title_contains" placeholder="Movie Title contains..." />
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-transparent">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>        
+        </div>
+      
+        <div class="form-row">
+          <div class="form-group col-md-6 col-lg-6">
+            <label for="viewCountMin">Minimum Rating</label>
+            <input type="number" min=0 max =10 class="form-control" id="RatingMin" placeholder="0" name="rating_min" step='0.1'>
+          </div>
+          <div class="form-group col-md-6 col-lg-6">
+            <label for="viewCountMax">Maximum Rating</label>
+            <input type="number" min=0 max=10 class="form-control" id="RatingMax" placeholder="10" name="rating_max" step='0.1'>
+          </div>
+          <div class="form-group col-md-6 col-lg-6">
+            <label for="publishyearMin">Publish year minimum</label>
+            <input type="number" min=1950 max= 2021 class="form-control" id="publishyearMin" name="year_min">
+          </div>
+          <div class="form-group col-md-6 col-lg-6">
+            <label for="publishyearMax">Publish year maximum</label>
+            <input type="number" min =1950 max = 2021 class="form-control" id="publishyearMax" name="year_max">
+          </div>
+          
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <hr />
+
+      <table class="table table-striped sortable">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Movie Title </th>
+            <th class="sorttable_numeric" scope="col">Year </th>
+            <th  class="sorttable_numeric"scope="col">Rating </th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          {% for movie in queryset %} 
+          
+          <tr>
+            <th scope="row"></th>
+            <td>{{ movie.Title }}</td>
+            <td>{{ movie.Year }}</td>
+            <td>{{ movie.Rating }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+
+    </main>
+<script src="{% static 'sorted.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
